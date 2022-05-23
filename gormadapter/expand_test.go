@@ -6,10 +6,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var expandMap = map[string]interface{}{
+var expandMap = map[string]any{
 	"Avatar": nil,
 	"User":   expandSlice,
-	"UserMap": map[string]interface{}{
+	"UserMap": map[string]any{
 		"Avatar": nil,
 	},
 }

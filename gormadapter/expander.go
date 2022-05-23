@@ -5,11 +5,11 @@ type Expander interface {
 }
 
 type expander struct {
-	whitelist interface{}
+	whitelist any
 	options   []Option
 }
 
-func New(whitelist interface{}, options ...Option) Expander {
+func New(whitelist any, options ...Option) Expander {
 	return &expander{
 		whitelist: whitelist,
 		options:   options,

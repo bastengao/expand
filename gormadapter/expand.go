@@ -22,7 +22,7 @@ var WithCamelCase Option = func(config *Config) {
 	config.Formatter = camelCaseExpand
 }
 
-func ValidateExpand(expand []string, whitelist interface{}, options ...Option) error {
+func ValidateExpand(expand []string, whitelist any, options ...Option) error {
 	var config Config
 	for _, opt := range options {
 		opt(&config)
@@ -43,7 +43,7 @@ func ValidateExpand(expand []string, whitelist interface{}, options ...Option) e
 }
 
 // Inspired by https://stripe.com/docs/expand
-func Expand(expand []string, whitelist interface{}, options ...Option) (Scope, error) {
+func Expand(expand []string, whitelist any, options ...Option) (Scope, error) {
 	expand = shrinkExpand(expand)
 	err := ValidateExpand(expand, whitelist, options...)
 	if err != nil {
@@ -92,7 +92,7 @@ func shrinkExpand(expand []string) []string {
 	return shrunk
 }
 
-func findExpand(expand string, whitelist interface{}) bool {
+func findExpand(expand string, whitelist any) bool {
 	if expand == "" {
 		return false
 	}
@@ -101,9 +101,9 @@ func findExpand(expand string, whitelist interface{}) bool {
 	return findExpandPart(parts, whitelist)
 }
 
-func findExpandPart(parts []string, whitelist interface{}) bool {
+func findExpandPart(parts []string, whitelist any) bool {
 	switch v := whitelist.(type) {
-	case map[string]interface{}:
+	case map[string]any:
 		part := parts[0]
 		value, ok := v[part]
 		if !ok {
